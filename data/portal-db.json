@@ -1,0 +1,997 @@
+{
+  "users": [
+    {
+      "id": 6,
+      "staffId": "NNAZ0007",
+      "fullName": "Chinaza Nnazor",
+      "role": "operations_officer",
+      "department": "Sales",
+      "title": "Staff member",
+      "active": true,
+      "kpi": 10,
+      "points": 10,
+      "createdAt": "2026-05-29T08:30:07.859Z",
+      "passwordHash": "sha256$008c70392e3abfbd0fa47bbc2ed96aa99bd49e159727fcba0f2e6abeb3a9d601",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 5,
+      "staffId": "NBLS2020",
+      "fullName": "Ralph",
+      "role": "digital_officer",
+      "department": "I.C.T",
+      "title": "Ralph",
+      "active": true,
+      "kpi": 1,
+      "points": 1,
+      "createdAt": "2026-05-28T11:04:35.552Z",
+      "passwordHash": "sha256$03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 1,
+      "staffId": "UCHE0001",
+      "fullName": "Uche Nobles",
+      "role": "superuser",
+      "department": "Leadership",
+      "title": "Operations Superuser",
+      "active": true,
+      "kpi": 0,
+      "points": 0,
+      "createdAt": "2026-05-10T11:01:58.535Z",
+      "passwordHash": "sha256$240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "status": "ACTIVE"
+    }
+  ],
+  "roles": [
+    {
+      "id": "superuser",
+      "name": "Super User",
+      "description": "Full portal control, staff setup, permissions, and reviews."
+    },
+    {
+      "id": "manager",
+      "name": "Manager",
+      "description": "Team leadership workspace and assigned staff tools."
+    },
+    {
+      "id": "admin_supervisor",
+      "name": "Admin Supervisor",
+      "description": "Administrative supervision and staff operations workspace."
+    },
+    {
+      "id": "marketer",
+      "name": "Marketer",
+      "description": "Portfolio growth, daily work logging, and field activity workspace."
+    },
+    {
+      "id": "loan_officer",
+      "name": "Loan Officer",
+      "description": "Loan workflow, daily work logging, and assigned training workspace."
+    },
+    {
+      "id": "digital_officer",
+      "name": "Digital Officer",
+      "description": "Digital operations, daily work logging, and assigned training workspace."
+    },
+    {
+      "id": "account_officer",
+      "name": "Account Officer",
+      "description": "Member/account operations, daily work logging, and assigned training workspace."
+    },
+    {
+      "id": "operations_officer",
+      "name": "Operations Officer",
+      "description": "Operations workspace, daily work logging, and assigned training."
+    }
+  ],
+  "permissions": [
+    {
+      "id": "admin.dashboard.view",
+      "label": "View Admin Dashboard",
+      "description": "Open executive command dashboard."
+    },
+    {
+      "id": "staff.manage",
+      "label": "Manage Staff",
+      "description": "Create staff, assign roles, change status, and reset passwords."
+    },
+    {
+      "id": "lms.manage",
+      "label": "Manage LMS",
+      "description": "Create and assign learning content."
+    },
+    {
+      "id": "role_cover.manage",
+      "label": "Manage Role Cover",
+      "description": "Configure operational cover rules."
+    },
+    {
+      "id": "staff.dashboard.view",
+      "label": "View Staff Dashboard",
+      "description": "Open personal staff dashboard."
+    },
+    {
+      "id": "activity.view",
+      "label": "View Activity Logs",
+      "description": "View own daily logs."
+    },
+    {
+      "id": "activity.create",
+      "label": "Create Activity Logs",
+      "description": "Submit daily activity evidence."
+    },
+    {
+      "id": "attendance.view",
+      "label": "View Attendance",
+      "description": "View own attendance records."
+    },
+    {
+      "id": "attendance.check_in",
+      "label": "Geo Check In",
+      "description": "Clock in and clock out with browser location."
+    },
+    {
+      "id": "lms.view",
+      "label": "View LMS",
+      "description": "Open assigned learning content."
+    },
+    {
+      "id": "notifications.view",
+      "label": "View Notifications",
+      "description": "Read personal notifications."
+    }
+  ],
+  "rolePermissions": [
+    {
+      "roleId": "superuser",
+      "permissionId": "admin.dashboard.view"
+    },
+    {
+      "roleId": "superuser",
+      "permissionId": "staff.manage"
+    },
+    {
+      "roleId": "superuser",
+      "permissionId": "lms.manage"
+    },
+    {
+      "roleId": "superuser",
+      "permissionId": "role_cover.manage"
+    },
+    {
+      "roleId": "superuser",
+      "permissionId": "staff.dashboard.view"
+    },
+    {
+      "roleId": "superuser",
+      "permissionId": "activity.view"
+    },
+    {
+      "roleId": "superuser",
+      "permissionId": "activity.create"
+    },
+    {
+      "roleId": "superuser",
+      "permissionId": "attendance.view"
+    },
+    {
+      "roleId": "superuser",
+      "permissionId": "attendance.check_in"
+    },
+    {
+      "roleId": "superuser",
+      "permissionId": "lms.view"
+    },
+    {
+      "roleId": "superuser",
+      "permissionId": "notifications.view"
+    },
+    {
+      "roleId": "manager",
+      "permissionId": "staff.dashboard.view"
+    },
+    {
+      "roleId": "manager",
+      "permissionId": "activity.view"
+    },
+    {
+      "roleId": "manager",
+      "permissionId": "activity.create"
+    },
+    {
+      "roleId": "manager",
+      "permissionId": "attendance.view"
+    },
+    {
+      "roleId": "manager",
+      "permissionId": "attendance.check_in"
+    },
+    {
+      "roleId": "manager",
+      "permissionId": "lms.view"
+    },
+    {
+      "roleId": "manager",
+      "permissionId": "notifications.view"
+    },
+    {
+      "roleId": "admin_supervisor",
+      "permissionId": "staff.dashboard.view"
+    },
+    {
+      "roleId": "admin_supervisor",
+      "permissionId": "activity.view"
+    },
+    {
+      "roleId": "admin_supervisor",
+      "permissionId": "activity.create"
+    },
+    {
+      "roleId": "admin_supervisor",
+      "permissionId": "attendance.view"
+    },
+    {
+      "roleId": "admin_supervisor",
+      "permissionId": "attendance.check_in"
+    },
+    {
+      "roleId": "admin_supervisor",
+      "permissionId": "lms.view"
+    },
+    {
+      "roleId": "admin_supervisor",
+      "permissionId": "notifications.view"
+    },
+    {
+      "roleId": "marketer",
+      "permissionId": "staff.dashboard.view"
+    },
+    {
+      "roleId": "marketer",
+      "permissionId": "activity.view"
+    },
+    {
+      "roleId": "marketer",
+      "permissionId": "activity.create"
+    },
+    {
+      "roleId": "marketer",
+      "permissionId": "attendance.view"
+    },
+    {
+      "roleId": "marketer",
+      "permissionId": "attendance.check_in"
+    },
+    {
+      "roleId": "marketer",
+      "permissionId": "lms.view"
+    },
+    {
+      "roleId": "marketer",
+      "permissionId": "notifications.view"
+    },
+    {
+      "roleId": "loan_officer",
+      "permissionId": "staff.dashboard.view"
+    },
+    {
+      "roleId": "loan_officer",
+      "permissionId": "activity.view"
+    },
+    {
+      "roleId": "loan_officer",
+      "permissionId": "activity.create"
+    },
+    {
+      "roleId": "loan_officer",
+      "permissionId": "attendance.view"
+    },
+    {
+      "roleId": "loan_officer",
+      "permissionId": "attendance.check_in"
+    },
+    {
+      "roleId": "loan_officer",
+      "permissionId": "lms.view"
+    },
+    {
+      "roleId": "loan_officer",
+      "permissionId": "notifications.view"
+    },
+    {
+      "roleId": "digital_officer",
+      "permissionId": "staff.dashboard.view"
+    },
+    {
+      "roleId": "digital_officer",
+      "permissionId": "activity.view"
+    },
+    {
+      "roleId": "digital_officer",
+      "permissionId": "activity.create"
+    },
+    {
+      "roleId": "digital_officer",
+      "permissionId": "attendance.view"
+    },
+    {
+      "roleId": "digital_officer",
+      "permissionId": "attendance.check_in"
+    },
+    {
+      "roleId": "digital_officer",
+      "permissionId": "lms.view"
+    },
+    {
+      "roleId": "digital_officer",
+      "permissionId": "notifications.view"
+    },
+    {
+      "roleId": "account_officer",
+      "permissionId": "staff.dashboard.view"
+    },
+    {
+      "roleId": "account_officer",
+      "permissionId": "activity.view"
+    },
+    {
+      "roleId": "account_officer",
+      "permissionId": "activity.create"
+    },
+    {
+      "roleId": "account_officer",
+      "permissionId": "attendance.view"
+    },
+    {
+      "roleId": "account_officer",
+      "permissionId": "attendance.check_in"
+    },
+    {
+      "roleId": "account_officer",
+      "permissionId": "lms.view"
+    },
+    {
+      "roleId": "account_officer",
+      "permissionId": "notifications.view"
+    },
+    {
+      "roleId": "operations_officer",
+      "permissionId": "staff.dashboard.view"
+    },
+    {
+      "roleId": "operations_officer",
+      "permissionId": "activity.view"
+    },
+    {
+      "roleId": "operations_officer",
+      "permissionId": "activity.create"
+    },
+    {
+      "roleId": "operations_officer",
+      "permissionId": "attendance.view"
+    },
+    {
+      "roleId": "operations_officer",
+      "permissionId": "attendance.check_in"
+    },
+    {
+      "roleId": "operations_officer",
+      "permissionId": "lms.view"
+    },
+    {
+      "roleId": "operations_officer",
+      "permissionId": "notifications.view"
+    }
+  ],
+  "activityLogs": [
+    {
+      "id": 5,
+      "userId": 6,
+      "summary": "Closed 12 Customer Tickets Today",
+      "tomorrowTodo": "Check and update a customer card",
+      "evidence": [
+        {
+          "id": "ev_1780043652312",
+          "type": "link",
+          "value": "https://app.smicos.com/stories/097a946f-ef5e-4744-bcc8-8bb8075437a7"
+        }
+      ],
+      "status": "rewarded",
+      "kpiAssigned": 10,
+      "penaltyAssigned": 0,
+      "reviewerId": 1,
+      "locked": true,
+      "createdAt": "2026-05-29T08:34:15.648Z",
+      "reviewNote": "",
+      "reviewedAt": "2026-05-29T08:51:54.529Z"
+    },
+    {
+      "id": 4,
+      "userId": 5,
+      "summary": "closed 12 deals today",
+      "tomorrowTodo": "check my mail tomorw",
+      "evidence": [
+        {
+          "id": "ev_1779966502298",
+          "type": "image",
+          "value": "https://lovable.dev/projects/a799ca0c-bf5d-4559-8810-b5e6fb99b61c"
+        }
+      ],
+      "status": "rewarded",
+      "kpiAssigned": 1,
+      "penaltyAssigned": 0,
+      "reviewerId": 1,
+      "locked": true,
+      "createdAt": "2026-05-28T11:08:27.466Z",
+      "reviewNote": "you did well",
+      "reviewedAt": "2026-05-28T11:09:26.724Z"
+    }
+  ],
+  "attendanceLogs": [
+    {
+      "id": 1,
+      "userId": 5,
+      "attendanceDate": "2026-06-12",
+      "status": "LATE",
+      "punctuality": "LATE",
+      "checkInAt": "2026-06-12T08:47:01.683Z",
+      "latitude": 6.209957799258233,
+      "longitude": 7.070905000412093,
+      "accuracyMeters": 126,
+      "createdAt": "2026-06-12T08:47:01.683Z",
+      "updatedAt": "2026-06-12T08:47:11.047Z",
+      "checkOutLatitude": 6.209957799258233,
+      "checkOutLongitude": 7.070905000412093,
+      "checkOutAccuracyMeters": 126,
+      "checkOutAt": "2026-06-12T08:47:11.047Z"
+    }
+  ],
+  "kpiTransactions": [
+    {
+      "id": 4,
+      "userId": 6,
+      "logId": 5,
+      "type": "reward",
+      "points": 10,
+      "amount": 1.5,
+      "reason": "Verified daily activity",
+      "createdBy": 1,
+      "createdAt": "2026-05-29T08:51:54.529Z"
+    },
+    {
+      "id": 3,
+      "userId": 5,
+      "logId": 4,
+      "type": "reward",
+      "points": 1,
+      "amount": 0.15,
+      "reason": "you did well",
+      "createdBy": 1,
+      "createdAt": "2026-05-28T11:09:26.724Z"
+    },
+    {
+      "id": 1,
+      "userId": 2,
+      "logId": 1,
+      "type": "reward",
+      "points": 24,
+      "amount": 3.6,
+      "reason": "Verified daily activity",
+      "createdBy": 1,
+      "createdAt": "2026-05-26T11:01:58.536Z"
+    },
+    {
+      "id": 2,
+      "userId": 3,
+      "logId": 2,
+      "type": "reward",
+      "points": 18,
+      "amount": 2.7,
+      "reason": "Verified daily activity",
+      "createdBy": 1,
+      "createdAt": "2026-05-27T11:01:58.536Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": 12,
+      "userId": 6,
+      "title": "KPI rewarded",
+      "message": "Your verified log earned 10 KPI points.",
+      "type": "success",
+      "read": false,
+      "createdAt": "2026-05-29T08:51:54.529Z"
+    },
+    {
+      "id": 11,
+      "userId": 1,
+      "title": "New activity log",
+      "message": "Chinaza Nnazor submitted evidence for review.",
+      "type": "info",
+      "read": true,
+      "createdAt": "2026-05-29T08:34:15.648Z"
+    },
+    {
+      "id": 10,
+      "userId": 6,
+      "title": "Welcome to Nobles Portal",
+      "message": "Your staff access has been created.",
+      "type": "success",
+      "read": false,
+      "createdAt": "2026-05-29T08:30:07.859Z"
+    },
+    {
+      "id": 9,
+      "userId": 5,
+      "title": "LMS completed",
+      "message": "Course progress has been marked complete.",
+      "type": "success",
+      "read": true,
+      "createdAt": "2026-05-28T11:15:15.704Z"
+    },
+    {
+      "id": 8,
+      "userId": 5,
+      "title": "LMS completed",
+      "message": "Course progress has been marked complete.",
+      "type": "success",
+      "read": true,
+      "createdAt": "2026-05-28T11:15:09.782Z"
+    },
+    {
+      "id": 7,
+      "userId": 5,
+      "title": "LMS assigned",
+      "message": "LOAN Manual has been assigned to you.",
+      "type": "info",
+      "read": true,
+      "createdAt": "2026-05-28T11:12:55.309Z"
+    },
+    {
+      "id": 6,
+      "userId": 5,
+      "title": "LMS assigned",
+      "message": "Daily Log Evidence Masterclass has been assigned to you.",
+      "type": "info",
+      "read": true,
+      "createdAt": "2026-05-28T11:11:40.725Z"
+    },
+    {
+      "id": 5,
+      "userId": 5,
+      "title": "KPI rewarded",
+      "message": "Your verified log earned 1 KPI points.",
+      "type": "success",
+      "read": true,
+      "createdAt": "2026-05-28T11:09:26.725Z"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "title": "New activity log",
+      "message": "Ralph submitted evidence for review.",
+      "type": "info",
+      "read": true,
+      "createdAt": "2026-05-28T11:08:27.466Z"
+    },
+    {
+      "id": 3,
+      "userId": 5,
+      "title": "Welcome to Nobles Portal",
+      "message": "Your staff access has been created.",
+      "type": "success",
+      "read": true,
+      "createdAt": "2026-05-28T11:04:35.552Z"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "title": "Verification queue",
+      "message": "Ada Mensah has a submitted activity log waiting for review.",
+      "type": "info",
+      "read": true,
+      "createdAt": "2026-05-27T11:01:58.536Z"
+    }
+  ],
+  "lmsCourses": [
+    {
+      "id": 3,
+      "title": "LOAN Manual",
+      "description": "",
+      "type": "mixed",
+      "resourceUrl": "https://lovable.dev/projects/a799ca0c-bf5d-4559-8810-b5e6fb99b61c",
+      "durationMinutes": 200,
+      "createdBy": 1,
+      "createdAt": "2026-05-28T11:12:49.339Z"
+    },
+    {
+      "id": 1,
+      "title": "Premium Support SOP",
+      "description": "Concierge tone, escalation rules, evidence standards, and client recovery flow.",
+      "type": "manual",
+      "resourceUrl": "https://example.com/premium-support-sop",
+      "durationMinutes": 35,
+      "createdBy": 1,
+      "createdAt": "2026-05-20T11:01:58.535Z"
+    },
+    {
+      "id": 2,
+      "title": "Daily Log Evidence Masterclass",
+      "description": "How to submit clean evidence that makes verification fast and fair.",
+      "type": "video",
+      "resourceUrl": "https://example.com/evidence-masterclass",
+      "durationMinutes": 22,
+      "createdBy": 1,
+      "createdAt": "2026-05-22T11:01:58.535Z"
+    }
+  ],
+  "lmsAssignments": [
+    {
+      "id": 5,
+      "courseId": 3,
+      "userId": 5,
+      "status": "completed",
+      "progress": 100,
+      "assignedAt": "2026-05-28T11:12:55.309Z",
+      "completedAt": "2026-05-28T11:15:15.704Z"
+    },
+    {
+      "id": 4,
+      "courseId": 2,
+      "userId": 5,
+      "status": "completed",
+      "progress": 100,
+      "assignedAt": "2026-05-28T11:11:40.725Z",
+      "completedAt": "2026-05-28T11:15:09.782Z"
+    }
+  ],
+  "roleCoverMatrix": [],
+  "todos": [
+    {
+      "id": 3,
+      "userId": 6,
+      "text": "Check and update a customer card",
+      "completed": false,
+      "dueDate": "2026-05-30T08:34:15.648Z",
+      "createdAt": "2026-05-29T08:34:15.648Z"
+    },
+    {
+      "id": 2,
+      "userId": 5,
+      "text": "check my mail tomorw",
+      "completed": false,
+      "dueDate": "2026-05-29T11:08:27.466Z",
+      "createdAt": "2026-05-28T11:08:27.466Z"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": 34,
+      "actorId": 5,
+      "action": "attendance_check_out",
+      "entity": "attendance_logs",
+      "entityId": 1,
+      "metadata": {
+        "attendanceDate": "2026-06-12"
+      },
+      "createdAt": "2026-06-12T08:47:11.047Z"
+    },
+    {
+      "id": 33,
+      "actorId": 5,
+      "action": "attendance_check_in",
+      "entity": "attendance_logs",
+      "entityId": 1,
+      "metadata": {
+        "attendanceDate": "2026-06-12",
+        "status": "LATE"
+      },
+      "createdAt": "2026-06-12T08:47:01.683Z"
+    },
+    {
+      "id": 32,
+      "actorId": 5,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 5,
+      "createdAt": "2026-06-12T08:46:15.781Z"
+    },
+    {
+      "id": 31,
+      "actorId": 1,
+      "action": "update_staff",
+      "entity": "users",
+      "entityId": 5,
+      "metadata": {
+        "role": "digital_officer",
+        "passwordReset": false
+      },
+      "createdAt": "2026-06-12T08:45:17.791Z"
+    },
+    {
+      "id": 30,
+      "actorId": 1,
+      "action": "update_staff",
+      "entity": "users",
+      "entityId": 5,
+      "metadata": {
+        "role": "digital_officer",
+        "passwordReset": false
+      },
+      "createdAt": "2026-06-12T08:45:17.431Z"
+    },
+    {
+      "id": 29,
+      "actorId": 1,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 1,
+      "createdAt": "2026-06-12T08:44:22.447Z"
+    },
+    {
+      "id": 28,
+      "actorId": 1,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 1,
+      "createdAt": "2026-06-12T08:44:05.922Z"
+    },
+    {
+      "id": 27,
+      "actorId": 5,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 5,
+      "createdAt": "2026-06-11T15:59:21.391Z"
+    },
+    {
+      "id": 26,
+      "actorId": 1,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 1,
+      "createdAt": "2026-06-11T15:53:25.162Z"
+    },
+    {
+      "id": 25,
+      "actorId": 1,
+      "action": "review_activity_reward",
+      "entity": "activity_logs",
+      "entityId": 5,
+      "metadata": {
+        "points": 10
+      },
+      "createdAt": "2026-05-29T08:51:54.529Z"
+    },
+    {
+      "id": 24,
+      "actorId": 6,
+      "action": "submit_activity",
+      "entity": "activity_logs",
+      "entityId": 5,
+      "createdAt": "2026-05-29T08:34:15.648Z"
+    },
+    {
+      "id": 23,
+      "actorId": 6,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 6,
+      "createdAt": "2026-05-29T08:31:13.686Z"
+    },
+    {
+      "id": 22,
+      "actorId": 1,
+      "action": "create_staff",
+      "entity": "users",
+      "entityId": 6,
+      "metadata": {
+        "staffId": "NNAZ0007"
+      },
+      "createdAt": "2026-05-29T08:30:07.859Z"
+    },
+    {
+      "id": 21,
+      "actorId": 1,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 1,
+      "createdAt": "2026-05-29T08:25:38.206Z"
+    },
+    {
+      "id": 20,
+      "actorId": 1,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 1,
+      "createdAt": "2026-05-29T08:09:50.572Z"
+    },
+    {
+      "id": 19,
+      "actorId": 5,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 5,
+      "createdAt": "2026-05-28T11:22:28.513Z"
+    },
+    {
+      "id": 18,
+      "actorId": 1,
+      "action": "update_staff",
+      "entity": "users",
+      "entityId": 5,
+      "metadata": {
+        "active": true,
+        "passwordReset": false
+      },
+      "createdAt": "2026-05-28T11:21:52.808Z"
+    },
+    {
+      "id": 17,
+      "actorId": 1,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 1,
+      "createdAt": "2026-05-28T11:21:45.271Z"
+    },
+    {
+      "id": 16,
+      "actorId": 1,
+      "action": "update_staff",
+      "entity": "users",
+      "entityId": 5,
+      "metadata": {
+        "active": false,
+        "passwordReset": false
+      },
+      "createdAt": "2026-05-28T11:20:57.480Z"
+    },
+    {
+      "id": 15,
+      "actorId": 1,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 1,
+      "createdAt": "2026-05-28T11:17:40.307Z"
+    },
+    {
+      "id": 14,
+      "actorId": 5,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 5,
+      "createdAt": "2026-05-28T11:14:14.514Z"
+    },
+    {
+      "id": 13,
+      "actorId": 1,
+      "action": "assign_course",
+      "entity": "lms_assignments",
+      "entityId": 5,
+      "metadata": {
+        "courseId": 3,
+        "userId": 5
+      },
+      "createdAt": "2026-05-28T11:12:55.309Z"
+    },
+    {
+      "id": 12,
+      "actorId": 1,
+      "action": "create_course",
+      "entity": "lms_courses",
+      "entityId": 3,
+      "createdAt": "2026-05-28T11:12:49.339Z"
+    },
+    {
+      "id": 11,
+      "actorId": 1,
+      "action": "assign_course",
+      "entity": "lms_assignments",
+      "entityId": 4,
+      "metadata": {
+        "courseId": 2,
+        "userId": 5
+      },
+      "createdAt": "2026-05-28T11:11:40.725Z"
+    },
+    {
+      "id": 10,
+      "actorId": 1,
+      "action": "review_activity_reward",
+      "entity": "activity_logs",
+      "entityId": 4,
+      "metadata": {
+        "points": 1
+      },
+      "createdAt": "2026-05-28T11:09:26.725Z"
+    },
+    {
+      "id": 9,
+      "actorId": 1,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 1,
+      "createdAt": "2026-05-28T11:08:43.501Z"
+    },
+    {
+      "id": 8,
+      "actorId": 5,
+      "action": "submit_activity",
+      "entity": "activity_logs",
+      "entityId": 4,
+      "createdAt": "2026-05-28T11:08:27.466Z"
+    },
+    {
+      "id": 7,
+      "actorId": 5,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 5,
+      "createdAt": "2026-05-28T11:06:10.768Z"
+    },
+    {
+      "id": 6,
+      "actorId": 1,
+      "action": "delete_staff",
+      "entity": "users",
+      "entityId": 3,
+      "createdAt": "2026-05-28T11:05:05.689Z"
+    },
+    {
+      "id": 5,
+      "actorId": 1,
+      "action": "delete_staff",
+      "entity": "users",
+      "entityId": 2,
+      "createdAt": "2026-05-28T11:05:03.181Z"
+    },
+    {
+      "id": 4,
+      "actorId": 1,
+      "action": "delete_staff",
+      "entity": "users",
+      "entityId": 4,
+      "createdAt": "2026-05-28T11:04:59.724Z"
+    },
+    {
+      "id": 3,
+      "actorId": 1,
+      "action": "create_staff",
+      "entity": "users",
+      "entityId": 5,
+      "metadata": {
+        "staffId": "NBLS2020"
+      },
+      "createdAt": "2026-05-28T11:04:35.552Z"
+    },
+    {
+      "id": 2,
+      "actorId": 1,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 1,
+      "createdAt": "2026-05-28T11:02:27.029Z"
+    },
+    {
+      "id": 1,
+      "actorId": 1,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 1,
+      "createdAt": "2026-05-28T11:01:58.548Z"
+    }
+  ],
+  "counters": {
+    "users": 6,
+    "activityLogs": 5,
+    "kpiTransactions": 4,
+    "notifications": 12,
+    "lmsCourses": 3,
+    "lmsAssignments": 5,
+    "roleCoverMatrix": 1,
+    "todos": 3,
+    "auditLogs": 34,
+    "attendanceLogs": 1
+  }
+}

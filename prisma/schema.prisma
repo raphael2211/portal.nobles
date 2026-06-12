@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = env("DATABASE_PROVIDER") // postgresql or mysql
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  fullName     String
+  staffId      String    @unique
+  passwordHash String
+  role         String
+  department   String?
+  active       Boolean   @default(true)
+  kpi          Int       @default(0)
+  points       Int       @default(0)
+  createdAt    DateTime  @default(now())
+
+  assignments  CourseAssignment[]
+  kpiRecords   KPIRecord[]
+  activityLogs ActivityLog[]
+  notifications Notification[]
+  attendance   AttendanceLog[]
+}
+
+model Course {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  type        String
+  videoUrl    String?
+  content     String?
+  thumbnail   String?
+  duration    Int?
+  objectives  String?
+  createdBy   Int
+  createdAt   DateTime @default(now())
+
+  creator     User     @relation(fields: [createdBy], references: [id])
+  assignments CourseAssignment[]
+  lessons     VideoLesson[]
+}
+
+model CourseAssignment {
+  id         Int      @id @default(autoincrement())
+  courseId   Int
+  userId     Int
+  assignedAt DateTime @default(now())
+  completed  Boolean  @default(false)
+  progress   Float    @default(0)
+
+  course Course @relation(fields: [courseId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model VideoLesson {
+  id        Int      @id @default(autoincrement())
+  courseId  Int
+  title     String
+  url       String
+  duration  Int?
+  thumbnail String?
+
+  course Course @relation(fields: [courseId], references: [id])
+}
+
+model KPIRecord {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  points      Int
+  periodStart DateTime
+  periodEnd   DateTime
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  title     String
+  message   String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model ActivityLog {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  summary    String
+  evidence   String?
+  status     String
+  kpiAssigned Int?
+  reviewerId Int?
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model AttendanceLog {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  date      DateTime
+  status    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
