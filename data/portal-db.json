@@ -430,6 +430,19 @@
   ],
   "attendanceLogs": [
     {
+      "id": 2,
+      "userId": 5,
+      "attendanceDate": "2026-06-15",
+      "status": "LATE",
+      "punctuality": "LATE",
+      "checkInAt": "2026-06-15T08:29:42.467Z",
+      "latitude": 6.220914675906184,
+      "longitude": 7.083042639658849,
+      "accuracyMeters": 70,
+      "createdAt": "2026-06-15T08:29:42.467Z",
+      "updatedAt": "2026-06-15T08:29:42.467Z"
+    },
+    {
       "id": 1,
       "userId": 5,
       "attendanceDate": "2026-06-12",
@@ -666,6 +679,42 @@
     }
   ],
   "auditLogs": [
+    {
+      "id": 38,
+      "actorId": 1,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 1,
+      "createdAt": "2026-06-15T12:37:29.680Z"
+    },
+    {
+      "id": 37,
+      "actorId": 5,
+      "action": "attendance_check_in",
+      "entity": "attendance_logs",
+      "entityId": 2,
+      "metadata": {
+        "attendanceDate": "2026-06-15",
+        "status": "LATE"
+      },
+      "createdAt": "2026-06-15T08:29:42.468Z"
+    },
+    {
+      "id": 36,
+      "actorId": 5,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 5,
+      "createdAt": "2026-06-15T08:28:13.829Z"
+    },
+    {
+      "id": 35,
+      "actorId": 5,
+      "action": "login",
+      "entity": "staff_sessions",
+      "entityId": 5,
+      "createdAt": "2026-06-15T08:27:51.514Z"
+    },
     {
       "id": 34,
       "actorId": 5,
@@ -991,7 +1040,7 @@
     "lmsAssignments": 5,
     "roleCoverMatrix": 1,
     "todos": 3,
-    "auditLogs": 34,
-    "attendanceLogs": 1
+    "auditLogs": 38,
+    "attendanceLogs": 2
   }
 }

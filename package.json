@@ -18,7 +18,7 @@
     "autoprefixer": "^10.4.14",
     "framer-motion": "^10.12.16",
     "lucide-react": "^0.286.0",
-    "next": "14.0.0",
+    "next": "^14.2.35",
     "postcss": "^8.4.21",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -27,11 +27,12 @@
     "typescript": "^5.1.0"
   },
   "devDependencies": {
-    "prisma": "^5.11.0",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.0",
-    "formidable": "^3.6.0",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "25.9.1",
-    "@types/react": "19.2.15"
+    "@types/react": "19.2.15",
+    "bcryptjs": "^2.4.3",
+    "formidable": "latest",
+    "jsonwebtoken": "^9.0.0",
+    "prisma": "^7.8.0"
   }
 }
