@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '../../../../lib/prisma';   // adjust path
+import { prisma } from '../../../../lib/prisma';
 import bcrypt from 'bcryptjs';
 import { signToken, setTokenCookie } from '../../../../lib/auth';
+import { Role } from '../../../../types/portal'; // 👈 import your local Role type
 
 export async function POST(req: Request) {
   try {
@@ -13,7 +14,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, message: 'Missing credentials' }, { status: 400 });
     }
 
-    // 1. Find user by staffId (case‑insensitive)
     const user = await prisma.user.findUnique({
       where: { staffId },
     });
@@ -22,22 +22,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, message: 'Invalid credentials' }, { status: 401 });
     }
 
-    // 2. Check if account is active
     if (!user.active) {
       return NextResponse.json({ ok: false, message: 'Account disabled' }, { status: 403 });
     }
 
-    // 3. Compare password
     const passwordMatch = await bcrypt.compare(password, user.passwordHash);
     if (!passwordMatch) {
       return NextResponse.json({ ok: false, message: 'Invalid credentials' }, { status: 401 });
     }
 
-    // 4. Prepare user object (without passwordHash) for response
     const { passwordHash: _, ...userWithoutHash } = user;
 
-    // 5. Generate token and set cookie
-    const token = signToken({ userId: user.id, role: user.role });
+    //  cast user.role to Role type
+    const token = signToken({ userId: user.id, role: user.role as Role });
     const res = NextResponse.json({ ok: true, user: userWithoutHash });
     setTokenCookie(res, token);
     return res;
