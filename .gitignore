@@ -1,13 +1,7 @@
-# dependencies
-node_modules/
-
-# nextjs build files
-.next/
-out/
-
-# environment variables
-.env
-.env.local
-
-# production build
-dist/
+.env 
+node_modules
+.next/ 
+.env.local 
+.env.production 
+.DS_Store 
+*.log 
