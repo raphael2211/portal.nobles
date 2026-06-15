@@ -24,7 +24,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <Sidebar />
       <div className="min-h-screen lg:pl-72">
         <Navbar />
-        <motion.main className="page-shell" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>{children}</motion.main>
+        <motion.div 
+          className="page-shell" 
+          initial={{ opacity: 0, y: 6 }} 
+          animate={{ opacity: 1, y: 0 }}
+        >
+          {children}
+        </motion.div>
       </div>
     </div>
   )
