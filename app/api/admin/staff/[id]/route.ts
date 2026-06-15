@@ -28,18 +28,19 @@ export async function PATCH(
   }
 
   // Prepare update data
-  const updateData: any = {};
+// Prepare update data
+const updateData: any = {};
 
-  if (body.fullName !== undefined) updateData.fullName = body.fullName;
-  if (body.department !== undefined) updateData.department = body.department;
-  if (body.role !== undefined) updateData.role = body.role;
-  if (body.active !== undefined) updateData.active = body.active;
-  if (body.status !== undefined) updateData.active = body.status === 'active';
-  
-  // If password is provided, hash it
-  if (body.password) {
-    updateData.passwordHash = await bcrypt.hash(body.password, 10);
-  }
+if (body.fullName !== undefined) updateData.fullName = body.fullName;
+if (body.department !== undefined) updateData.department = body.department;
+if (body.role !== undefined) updateData.role = body.role;
+if (body.active !== undefined) updateData.active = body.active;
+if (body.status !== undefined) updateData.active = body.status === 'ACTIVE'; 
+
+// If password is provided, hash it
+if (body.password) {
+  updateData.passwordHash = await bcrypt.hash(body.password, 10);
+}
 
   // title field is not in your User model – you can either ignore it or add a 'title' column to schema
   // For now, we ignore 'title'
