@@ -73,7 +73,7 @@ export async function POST(req: Request) {
       passwordHash: hashedPassword,
       department: body.department,
       role: body.role || 'staff',
-      active: body.status === 'active' ? true : (body.status === 'inactive' ? false : true),
+      active: body.status === 'ACTIVE' ? true : (body.status === 'INACTIVE' ? false : true),
       // title field might not be in your User model – ignore or add later
       // kpi and points default to 0 (already set in schema)
     },

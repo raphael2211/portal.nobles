@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { currentSession } from '../../../lib/session';
 import { prisma } from '../../../lib/prisma';
-import { Role } from '@prisma/client'; // adjust import path
+import { Role } from '../../../types/portal'; // ✅ use your local Role type
 
 // ------------------------------------------------------------------
 // 1. Office location & allowed clock-out window
@@ -76,6 +76,7 @@ async function logToGoogleSheets(
     console.error('❌ Failed to log to Google Sheets:', err);
   }
 }
+
 // ------------------------------------------------------------------
 // 4. GET: list attendance for current user (or all if admin)
 // ------------------------------------------------------------------
@@ -85,12 +86,12 @@ export async function GET() {
     return NextResponse.json({ ok: false, message: 'Unauthorized' }, { status: 401 });
   }
 
-  // Determine if user is admin
+  // Determine if user is admin (adjust role check as needed)
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
     select: { role: true },
   });
-  const isAdmin = user?.role === 'admin';
+  const isAdmin = user?.role === 'superuser' || user?.role === 'admin_supervisor'; // adapt
 
   const attendance = await prisma.attendanceLog.findMany({
     where: isAdmin ? {} : { userId: session.userId },
@@ -114,7 +115,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, message: 'Unauthorized' }, { status: 401 });
   }
 
-  // Check permissions using role or custom logic – adjust as needed
   const user = await prisma.user.findUnique({
     where: { id: session.userId },
     select: { role: true, fullName: true, staffId: true },
@@ -123,23 +123,25 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, message: 'User not found' }, { status: 404 });
   }
 
-  // Allow attendance only for 'staff' or 'admin' (adjust roles)
-  // Define which roles are allowed to use attendance
-const allowedRoles = [
-  'operations officer',
-  'loans officer',
-  'digital_officer',
-  'marketer',
-  'manager',
-  'account officer',
-  'social media manager',
-  'admin supervisor',
-  'admin' // keep if you still use 'admin' somewhere
-];
+  // ✅ Use the exact role strings from your portal types (underscores)
+  const allowedRoles: Role[] = [
+    'superuser',
+    'manager',
+    'admin_supervisor',
+    'marketer',
+    'loan_officer',
+    'digital_officer',
+    'account_officer',
+    'operations_officer',
+    'staff'
+  ];
 
-if (!allowedRoles.includes(user.role)) {
-  return NextResponse.json({ ok: false, message: 'Forbidden: Your role does not have attendance permission' }, { status: 403 });
-}
+  if (!allowedRoles.includes(user.role as Role)) {
+    return NextResponse.json(
+      { ok: false, message: 'Forbidden: Your role does not have attendance permission' },
+      { status: 403 }
+    );
+  }
 
   const body = (await req.json()) as {
     action?: 'check_in' | 'check_out';
@@ -179,7 +181,6 @@ if (!allowedRoles.includes(user.role)) {
 
   // --- CHECK IN ---
   if (body.action === 'check_in') {
-    // Check if already checked in today without checkout
     const existing = await prisma.attendanceLog.findFirst({
       where: {
         userId: session.userId,
@@ -194,7 +195,6 @@ if (!allowedRoles.includes(user.role)) {
       );
     }
 
-    // Create new attendance record
     const newLog = await prisma.attendanceLog.create({
       data: {
         userId: session.userId,
@@ -204,19 +204,16 @@ if (!allowedRoles.includes(user.role)) {
         longitude: body.longitude,
         accuracyMeters: body.accuracyMeters,
         note: body.note,
-        status: 'Present', // default
+        status: 'PRESENT', // use uppercase to match your AttendanceState type
       },
     });
 
-    // Send to Google Sheets (clock-in)
     await logToGoogleSheets(user.staffId, user.fullName, now, undefined);
-
     return NextResponse.json({ ok: true, attendance: newLog, message: 'Checked in successfully' });
   }
 
   // --- CHECK OUT ---
   if (body.action === 'check_out') {
-    // Enforce check-out time window (3 PM – 6 PM)
     const hour = now.getHours();
     if (hour < CLOCK_OUT_START_HOUR || hour >= CLOCK_OUT_END_HOUR) {
       return NextResponse.json(
@@ -228,7 +225,6 @@ if (!allowedRoles.includes(user.role)) {
       );
     }
 
-    // Find open attendance record for today
     const openRecord = await prisma.attendanceLog.findFirst({
       where: {
         userId: session.userId,
@@ -243,12 +239,10 @@ if (!allowedRoles.includes(user.role)) {
       );
     }
 
-    // Update with clock-out time
     const updated = await prisma.attendanceLog.update({
       where: { id: openRecord.id },
       data: {
         clockOut: now,
-        // Optionally update location again (can also store separate out-location)
         latitude: body.latitude,
         longitude: body.longitude,
         accuracyMeters: body.accuracyMeters,
@@ -256,9 +250,7 @@ if (!allowedRoles.includes(user.role)) {
       },
     });
 
-    // Send to Google Sheets (clock-out)
     await logToGoogleSheets(user.staffId, user.fullName, openRecord.clockIn ?? undefined, now);
-
     return NextResponse.json({ ok: true, attendance: updated, message: 'Checked out successfully' });
   }
 
