@@ -24,7 +24,7 @@ export async function GET() {
   });
 
   // Transform to match your frontend expected shape (if needed)
-  const staffList = users.map(user => ({
+  const staffList = users.map((user: any) => ({
     id: user.id,
     staffId: user.staffId,
     fullName: user.fullName,
