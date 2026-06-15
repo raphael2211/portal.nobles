@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-type ButtonVariant = 'primary' | 'secondary' | 'danger';
+type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -22,17 +22,12 @@ export default function Button({
     primary: 'bg-blue-600 text-white hover:bg-blue-700 active:scale-95 focus:ring-blue-500',
     secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300 active:scale-95 focus:ring-gray-500',
     danger: 'bg-red-600 text-white hover:bg-red-700 active:scale-95 focus:ring-red-500',
+    ghost: 'bg-transparent text-gray-700 hover:bg-gray-100 active:scale-95 focus:ring-gray-400',
   };
 
-  const { onAnimationStart, onAnimationEnd, onAnimationIteration, ...safeRest } = rest as any;
-
   return (
-    <motion.button 
-      whileTap={{ scale: 0.98 }} 
-      className={`${base} ${variants[variant]} ${className}`} 
-      {...safeRest}
-    >
+    <button className={`${base} ${variants[variant]} ${className}`} {...rest}>
       {children}
-    </motion.button>
+    </button>
   );
 }
