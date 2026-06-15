@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 
 type ButtonVariant = 'primary' | 'secondary' | 'danger';
 
@@ -23,9 +24,15 @@ export default function Button({
     danger: 'bg-red-600 text-white hover:bg-red-700 active:scale-95 focus:ring-red-500',
   };
 
+  const { onAnimationStart, onAnimationEnd, onAnimationIteration, ...safeRest } = rest as any;
+
   return (
-    <button className={`${base} ${variants[variant]} ${className}`} {...rest}>
+    <motion.button 
+      whileTap={{ scale: 0.98 }} 
+      className={`${base} ${variants[variant]} ${className}`} 
+      {...safeRest}
+    >
       {children}
-    </button>
+    </motion.button>
   );
 }
