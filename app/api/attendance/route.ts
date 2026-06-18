@@ -10,7 +10,7 @@ const OFFICE_LOCATION = {
   latitude: 6.221484342770615,   // ← your office latitude
   longitude: 7.082727350925336,  // ← your office longitude
 };
-const MAX_DISTANCE_METERS = 100; // 100 meters
+const MAX_DISTANCE_METERS = 2; // 100 meters
 
 // Clock‑out allowed only between 15:00 (3 PM) and 18:00 (6 PM) – local server time
 const CLOCK_OUT_START_HOUR = 15; // 3 PM
@@ -46,12 +46,16 @@ function haversineDistance(
 async function logToGoogleSheets(
   staffId: string,
   staffName: string,
+  department: string,
   clockInTime?: Date,
-  clockOutTime?: Date
+  clockOutTime?: Date,
+  latitude?: number,
+  longitude?: number,
+  accuracyMeters?: number
 ) {
-  console.log('📤 Sending to Google Sheets:', { staffId, staffName, clockInTime, clockOutTime });
+  console.log('📤 Sending to Google Sheets:', { staffId, staffName, department, clockInTime, clockOutTime });
   
-  if (!APPS_SCRIPT_URL) {
+  if (!process.env.APPS_SCRIPT_URL) {
     console.error('APPS_SCRIPT_URL is not defined in environment');
     return;
   }
@@ -60,12 +64,17 @@ async function logToGoogleSheets(
     action: clockOutTime ? 'clockout' : 'clockin',
     staffId,
     staffName,
-    clockIn: clockInTime?.toISOString(),
-    clockOut: clockOutTime?.toISOString(),
+    department,
+    date: new Date().toLocaleDateString('en-US'),
+    clockIn: clockInTime?.toLocaleTimeString('en-US'),
+    clockOut: clockOutTime?.toLocaleTimeString('en-US'),
+    latitude: latitude?.toFixed(6),
+    longitude: longitude?.toFixed(6),
+    accuracyMeters,
   };
 
   try {
-    const response = await fetch(APPS_SCRIPT_URL, {
+    const response = await fetch(process.env.APPS_SCRIPT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -180,79 +189,98 @@ export async function POST(req: Request) {
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
   // --- CHECK IN ---
-  if (body.action === 'check_in') {
-    const existing = await prisma.attendanceLog.findFirst({
-      where: {
-        userId: session.userId,
-        attendanceDate: today,
-        clockOut: null,
-      },
-    });
-    if (existing) {
-      return NextResponse.json(
-        { ok: false, message: 'You already have an open check‑in for today. Please check out first.' },
-        { status: 400 }
-      );
-    }
-
-    const newLog = await prisma.attendanceLog.create({
-      data: {
-        userId: session.userId,
-        attendanceDate: today,
-        clockIn: now,
-        latitude: body.latitude,
-        longitude: body.longitude,
-        accuracyMeters: body.accuracyMeters,
-        note: body.note,
-        status: 'PRESENT', // use uppercase to match your AttendanceState type
-      },
-    });
-
-    await logToGoogleSheets(user.staffId, user.fullName, now, undefined);
-    return NextResponse.json({ ok: true, attendance: newLog, message: 'Checked in successfully' });
+ if (body.action === 'check_in') {
+  const existing = await prisma.attendanceLog.findFirst({
+    where: {
+      userId: session.userId,
+      attendanceDate: today,
+      clockOut: null,
+    },
+  });
+  if (existing) {
+    return NextResponse.json(
+      { ok: false, message: 'You already have an open check‑in for today. Please check out first.' },
+      { status: 400 }
+    );
   }
+
+  const newLog = await prisma.attendanceLog.create({
+    data: {
+      userId: session.userId,
+      attendanceDate: today,
+      clockIn: now,
+      latitude: body.latitude,
+      longitude: body.longitude,
+      accuracyMeters: body.accuracyMeters,
+      note: body.note,
+      status: 'PRESENT',
+    },
+  });
+
+  // ✅ Log to Google Sheets with all details
+  await logToGoogleSheets(
+    user.staffId,
+    user.fullName,
+    user.role, // or department if you have it
+    now,
+    undefined,
+    body.latitude,
+    body.longitude,
+    body.accuracyMeters
+  );
+
+  return NextResponse.json({ ok: true, attendance: newLog, message: 'Checked in successfully' });
+}
 
   // --- CHECK OUT ---
-  if (body.action === 'check_out') {
-    const hour = now.getHours();
-    if (hour < CLOCK_OUT_START_HOUR || hour >= CLOCK_OUT_END_HOUR) {
-      return NextResponse.json(
-        {
-          ok: false,
-          message: `Check‑out is only allowed between ${CLOCK_OUT_START_HOUR}:00 and ${CLOCK_OUT_END_HOUR}:00.`,
-        },
-        { status: 400 }
-      );
-    }
-
-    const openRecord = await prisma.attendanceLog.findFirst({
-      where: {
-        userId: session.userId,
-        attendanceDate: today,
-        clockOut: null,
+ if (body.action === 'check_out') {
+  const hour = now.getHours();
+  if (hour < CLOCK_OUT_START_HOUR || hour >= CLOCK_OUT_END_HOUR) {
+    return NextResponse.json(
+      {
+        ok: false,
+        message: `Check‑out is only allowed between ${CLOCK_OUT_START_HOUR}:00 and ${CLOCK_OUT_END_HOUR}:00.`,
       },
-    });
-    if (!openRecord) {
-      return NextResponse.json(
-        { ok: false, message: 'No open check‑in found for today. Please check in first.' },
-        { status: 400 }
-      );
-    }
-
-    const updated = await prisma.attendanceLog.update({
-      where: { id: openRecord.id },
-      data: {
-        clockOut: now,
-        latitude: body.latitude,
-        longitude: body.longitude,
-        accuracyMeters: body.accuracyMeters,
-        note: body.note,
-      },
-    });
-
-    await logToGoogleSheets(user.staffId, user.fullName, openRecord.clockIn ?? undefined, now);
-    return NextResponse.json({ ok: true, attendance: updated, message: 'Checked out successfully' });
+      { status: 400 }
+    );
   }
 
-  return NextResponse.json({ ok: false, message: 'Invalid action' }, { status: 400 });
+  const openRecord = await prisma.attendanceLog.findFirst({
+    where: {
+      userId: session.userId,
+      attendanceDate: today,
+      clockOut: null,
+    },
+  });
+  if (!openRecord) {
+    return NextResponse.json(
+      { ok: false, message: 'No open check‑in found for today. Please check in first.' },
+      { status: 400 }
+    );
+  }
+
+  const updated = await prisma.attendanceLog.update({
+    where: { id: openRecord.id },
+    data: {
+      clockOut: now,
+      latitude: body.latitude,
+      longitude: body.longitude,
+      accuracyMeters: body.accuracyMeters,
+      note: body.note,
+    },
+  });
+
+  // ✅ Log checkout to Google Sheets
+  await logToGoogleSheets(
+    user.staffId,
+    user.fullName,
+    user.role,
+    openRecord.clockIn ?? undefined,
+    now,
+    body.latitude,
+    body.longitude,
+    body.accuracyMeters
+  );
+
+  return NextResponse.json({ ok: true, attendance: updated, message: 'Checked out successfully' });
 }
