@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "start": "next start -p 3001",
     "lint": "next lint",
+    "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name init",
     "prisma:studio": "prisma studio",
@@ -14,13 +15,11 @@
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
-    "@prisma/client": "^7.8.0",
     "@supabase/supabase-js": "^2.34.0",
     "autoprefixer": "^10.4.14",
     "framer-motion": "^12.40.0",
     "lucide-react": "^0.286.0",
     "next": "^14.2.35",
-    "pg": "^8.21.0",
     "postcss": "^8.4.21",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -31,7 +30,6 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "25.9.1",
-    "@types/pg": "^8.20.0",
     "@types/react": "19.2.15",
     "bcryptjs": "^2.4.3",
     "formidable": "latest",
