@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 async function main() {
   const adminStaffId = process.env.SUPERUSER_ID || 'UCHE0001'
-  const adminPassword = process.env.SUPERUSER_PASSWORD || 'admin123'
+  const adminPassword = process.env.SUPERUSER_PASSWORD || 'Nelosco79'
 
   const existing = await prisma.user.findUnique({ where: { staffId: adminStaffId } })
   if (existing) {
