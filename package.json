@@ -2,6 +2,7 @@
   "name": "nobles-portal",
   "version": "0.1.0",
   "private": true,
+  "build": "prisma migrate deploy && node prisma/seed.js && next build",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "prisma migrate deploy && next build",
