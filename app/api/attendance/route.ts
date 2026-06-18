@@ -283,4 +283,5 @@ export async function POST(req: Request) {
   );
 
   return NextResponse.json({ ok: true, attendance: updated, message: 'Checked out successfully' });
+ }
 }
